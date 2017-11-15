@@ -1,5 +1,4 @@
-# require 'rails_helper'
-
+require 'rails_helper'
 describe Category do
   let(:category) { Category.create!(category_name: "Healthcare") }
 
@@ -20,5 +19,4 @@ describe Category do
 #   describe "validations" do
 #     it { should validate_presence_of(:category_name) }
 #   end
-
-# end
+end
