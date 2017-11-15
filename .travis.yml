@@ -1,0 +1,8 @@
+language: ruby
+env:
+  - DB=postgresql
+script:
+  - bundle exec rails spec
+before_script:
+  - bundle exec rails db:create RAILS_ENV=test
+  - bundle exec rails db:migrate
