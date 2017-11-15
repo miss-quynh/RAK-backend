@@ -43,7 +43,6 @@ class Project < ApplicationRecord
 
   def self.projects_by_category(proj_arr, category_arr)
     if category_arr.class == Array && !category_arr.empty?
-      p '************************!!!!!!!!!'
       projects_in_cat = []
       categories = Category.all.select{ |category| category_arr.include?(category.category_name)}
       categories.each do |category|
@@ -53,8 +52,6 @@ class Project < ApplicationRecord
     else
       projects = proj_arr
     end
-    p '************************'
-    p projects
   end
 
   def self.projects_by_type(proj_arr, donation_types_arr)
