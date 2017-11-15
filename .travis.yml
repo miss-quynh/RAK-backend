@@ -1,4 +1,6 @@
 language: ruby
+services:
+  - postgresql
 env:
   - DB=postgresql
 script:
