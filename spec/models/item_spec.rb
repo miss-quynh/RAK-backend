@@ -44,7 +44,6 @@ describe Item do
   end
 
   describe "validations" do
-    it { should validate_presence_of(:item_name) }
     it { should validate_presence_of(:donation_type) }
   end
 
