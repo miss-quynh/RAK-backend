@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+	before_action :authenticate_organization, only: [:create, :update, :destroy]
 
 	def index
 		@projects = Project.all
@@ -27,7 +28,6 @@ class ProjectsController < ApplicationController
 	end
 
 	def create
-		authenticate_organization # method comes from Knock gem
 	  @project = Project.new(project_params)
 		@organization = Organization.find_by(id: params[:organization_id])
 		@project.organization = @organization
@@ -45,7 +45,6 @@ class ProjectsController < ApplicationController
 	end
 
 	def update
-		authenticate_organization
 		@project = Project.find_by(id: params[:id])
 
 		if @project.update(project_params)
@@ -62,7 +61,6 @@ class ProjectsController < ApplicationController
 	end
 
 	def destroy
-		authenticate_organization
 		@project = Project.find_by(id: params[:id])
 		@project.destroy
 
