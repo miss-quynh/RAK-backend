@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   resources :donors, except: [:index]
 
+  resources :donations, only: [:show, :create, :update]
+
   get '/filters', to: 'donors#filter_options'
   post '/filters', to: 'donors#filter'
 
