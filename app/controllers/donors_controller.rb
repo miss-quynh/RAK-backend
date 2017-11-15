@@ -28,8 +28,34 @@ class DonorsController < ApplicationController
     render status: 200
   end
 
+  def filter
+    p '*************'
+    p params
+  end
+
+  def filter_options
+    @filters = {}
+    @filters[:categories] = []
+    @filters[:donation_type] = []
+    @filters[:events] = []
+
+    Category.all.each do |category|
+      @filters[:categories] << category.category_name
+    end
+    DonationType.all.each do |dontype|
+      @filters[:donation_type] << dontype.type_name
+    end
+    Event.order(created_at: :desc).limit(20).each do |event|
+      @filters[:events] << event.event_name
+    end
+
+    render json: @filters
+  end
+
   private
+
   def donor_params
     params.require(:donor).permit(:first_name, :last_name, :email, :street_address, :city, :state, :zip_code, :password)
   end
+
 end

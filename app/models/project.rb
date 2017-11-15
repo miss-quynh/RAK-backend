@@ -1,4 +1,6 @@
 class Project < ApplicationRecord
+
+
   belongs_to :organization
   belongs_to :event
   has_one :category, through: :organization
@@ -20,20 +22,42 @@ class Project < ApplicationRecord
     donations
   end
 
-  def closest_projects(donor_zipcode)
-    projects_in_radius = []
-
-    @projects = project.all
-    @project_zipcodes = ZipcodeReturner.closest_zipcodes(project_params[:donor_zipcode])
-
-    @projects.each do |project|
-      @project_zipcodes.each do |zip|
-        if project.zip_code == zip
-          projects_in_radius << project
-        end
-      end
+  def self.projects_by_location(proj_arr, zipcode_arr)
+    if !zipcode_arr.empty?
+      return proj_arr.select { |project| zipcode_arr.include?(project.zip_code) }
+    else
+      return proj_arr
     end
-    projects_in_radius
+  end
+
+# has to be an event array!
+  def self.projects_by_event(proj_arr, event_arr)
+    if !event_arr.empty?
+      proj_arr.where({ event: event_arr})
+    else
+      proj_arr
+    end
+  end
+
+  def self.projects_by_category(proj_arr, category_arr)
+    if !category_arr.empty?
+      projects_in_cat = []
+      category_arr.each do |category|
+        projects_in_cat = projects_in_cat | category.projects
+      end
+      projects = proj_arr&projects_in_cat
+    else
+      projects = proj_arr
+    end
+    projects
+  end
+
+  def self.projects_by_type(proj_arr, donation_types_arr)
+    if !event_arr.empty?
+      proj_arr.where({ event: event_arr})
+    else
+      proj_arr
+    end
   end
 
 end
