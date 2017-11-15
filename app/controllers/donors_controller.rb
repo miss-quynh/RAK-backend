@@ -2,6 +2,7 @@ class DonorsController < ApplicationController
 
   def create
     @donor = Donor.new(donor_params)
+
     if @donor.save
       render json: @donor
     else
@@ -11,20 +12,23 @@ class DonorsController < ApplicationController
   end
 
   def show
-    @donor = Donor.find(params[:id])
+    @donor = Donor.find_by(id: params[:id])
     @followings = @donor.followings
+
     render json: {donor: @donor, followings: @followings}
   end
 
   def update
-    @donor = Donor.find(params[:id])
+    @donor = Donor.find_by(id: params[:id])
     @donor.update(donor_params)
+
     render json: @donor
   end
 
   def delete
-    @donor = Donor.find(params[:id])
+    @donor = Donor.find_by(id: params[:id])
     @donor.destroy
+
     render status: 200
   end
 
