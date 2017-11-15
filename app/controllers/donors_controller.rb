@@ -33,8 +33,16 @@ class DonorsController < ApplicationController
   end
 
   def filter
-    p '*************'
-    p params
+    filter = params["filters"]
+
+    @projects = Project.all
+    @projects = Project.projects_by_event(@projects, filter["events"])
+    @projects = Project.projects_by_category(@projects, filter["categories"])
+    @projects = Project.projects_by_type(@projects, filter["donationType"])
+
+    @organizations = Project.organizations_by_projects(@projects)
+
+    render json: {projects: @projects, organizations:@organizations}
   end
 
   def filter_options
