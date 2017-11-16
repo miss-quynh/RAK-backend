@@ -16,5 +16,5 @@ Rails.application.routes.draw do
   get '/filters', to: 'donors#filter_options'
   post '/filters', to: 'donors#filter'
 
-
+  root to: 'donors#index'
 end
