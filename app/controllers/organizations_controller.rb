@@ -20,17 +20,7 @@ class OrganizationsController < ApplicationController
   def ein
     p ein = params['ein']
     ein = GuidestarSearchAdapter.verify_organization(ein)
-    p ein
-    #   @organization = Organization.new(organization_params)
-    # end
-
-    # if @organization.save
-    #   render json: @organization
-    # else
-    #   render json: { error: 'The account was not successfully created. EIN invalid'}
-    # end
-
-
+    json:
   end
 
   def create
