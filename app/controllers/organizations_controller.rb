@@ -8,13 +8,29 @@ class OrganizationsController < ApplicationController
 
   def show
     @organization = Organization.find_by(id: params[:id])
-    @organization_projects = @organization.projects
+    @projects = @organization.projects
 
     render json: {organization: @organization, projects: @projects, category: @organization.category}
   end
 
   def new
     @organization = Organization.new
+  end
+
+  def ein
+    p ein = params['ein']
+    ein = GuidestarSearchAdapter.verify_organization(ein)
+    p ein
+    #   @organization = Organization.new(organization_params)
+    # end
+
+    # if @organization.save
+    #   render json: @organization
+    # else
+    #   render json: { error: 'The account was not successfully created. EIN invalid'}
+    # end
+
+
   end
 
   def create
@@ -26,15 +42,6 @@ class OrganizationsController < ApplicationController
       render json: {errors: @organization.errors.full_messages}, status: 422
     end
 
-  #   if GuidestarSearchAdapter.verify_organization(organization_params[:ein])
-  #     @organization = Organization.new(organization_params)
-  #   end
-
-  #   if @organization.save
-  #     render json: @organization
-  #   else
-  #     render json: { error: 'The account was not successfully created. EIN invalid'}
-  #   end
   end
 
   def edit
