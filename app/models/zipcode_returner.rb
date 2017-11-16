@@ -8,11 +8,12 @@ class ZipcodeReturner
 
   def self.closest_zipcodes(zipcode)
     result = self.get("/#{@@token}/radius.json/#{zipcode}/50/mile")
-    closest_zipcodes_arr(result)
+    result_arr = result["zip_codes"]
+    parsed_zipcodes_arr(result_arr)
   end
 
-  def closest_zipcodes_arr(result)
-    result["zip_codes"]
+  def self.parsed_zipcodes_arr(result_arr)
+    result_arr.map { |city| city["zip_code"].to_i }
   end
 
 end
