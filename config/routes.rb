@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post '/donor_token' => 'donor_token#create'
 
   resources :organizations
+  post '/organizations/ein', to: 'organizations#ein'
 
 	resources :projects do
 		resources :events, only: [:show, :update]
