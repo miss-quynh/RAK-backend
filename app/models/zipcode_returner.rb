@@ -13,7 +13,7 @@ class ZipcodeReturner
   end
 
   def self.parsed_zipcodes_arr(result_arr)
-    result_arr.map { |city| city["zip_code"] }
+    result_arr.map { |city| city["zip_code"].to_i }
   end
 
 end
