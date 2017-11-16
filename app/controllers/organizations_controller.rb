@@ -17,7 +17,12 @@ class OrganizationsController < ApplicationController
     ein = params['ein']
     @orgInfo = GuidestarSearchAdapter.verify_organization(ein)
 
-    render json: @orgInfo, status: 200
+    if @orgInfo
+      render json: @orgInfo, status: 200
+    else
+      @errors = ["Invalid EIN"]
+      render json: @errors, status: 422
+    end
   end
 
   def create
