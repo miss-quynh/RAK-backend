@@ -13,25 +13,24 @@ class OrganizationsController < ApplicationController
     render json: {organization: @organization, projects: @projects, category: @organization.category}
   end
 
-  def new
-    @organization = Organization.new
-  end
-
   def ein
-    p ein = params['ein']
-    ein = GuidestarSearchAdapter.verify_organization(ein)
-    json:
+    ein = params['ein']
+    @orgInfo = GuidestarSearchAdapter.verify_organization(ein)
+
+    render json: @orgInfo, status: 200
   end
 
   def create
+
     @organization = Organization.new(organization_params)
+    @category = Category.find_by(category_name: params['category'])
+    @organization.category = @category
 
     if @organization.save
-      render json: {organization: @organization, image_url: @organization.avatar.url}
+      render json: {organization: @organization}
     else
       render json: {errors: @organization.errors.full_messages}, status: 422
     end
-
   end
 
   def edit
@@ -53,7 +52,7 @@ class OrganizationsController < ApplicationController
   private
 
   def organization_params
-    params.require(:organization).permit(:organization_name, :tax_code, :email, :password, :password_confirmation, :avatar, :category_id)
+    params.require(:organization).permit(:organization_name, :tax_code, :email, :password, :password_confirmation, :mission_statement, :avatar, :category_id)
   end
 
 end
