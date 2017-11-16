@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-	before_action :authenticate_organization, only: [:create, :update, :destroy]
+	# before_action :authenticate_organization, only: [:create, :update, :destroy]
 
 	def index
 		@projects = Project.all
@@ -49,7 +49,7 @@ class ProjectsController < ApplicationController
 
 		if @project.update(project_params)
 			if project_params[:event] != @project.event.event_name
-				@project.event = Event.find_or_create_by(name: project_params[:event])
+				@project.event = Event.find_or_create_by(event_name: project_params[:event])
 			elsif !project_params[:event]
 				@project.event = nil
 			end

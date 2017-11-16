@@ -14,7 +14,9 @@ class Project < ApplicationRecord
     donations = []
     self.donations.each do |donation|
       hash = Hash.new()
+      hash[:id] = donation.id
       hash[:item] = donation.item.item_name
+      hash[:donation_type] = donation.item.donation_type.type_name
       hash[:quantity_requested] = donation.quantity_requested
       hash[:quantity_received] = donation.quantity_received
       donations << hash
