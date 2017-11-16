@@ -1,4 +1,4 @@
-class GuidestarSearchAdapter 
+class GuidestarSearchAdapter
 
   include HTTParty
 
@@ -15,10 +15,6 @@ class GuidestarSearchAdapter
   private
 
   def self.parse_data(response)
-      JSON.parse(response)
-      return response["hits"]["ein"]
-      rescue JSON::ParserError => e
-      return false
-    
+      return response["hits"]
   end
 end
