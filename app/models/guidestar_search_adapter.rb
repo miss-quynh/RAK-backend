@@ -15,7 +15,6 @@ class GuidestarSearchAdapter
   private
 
   def self.parse_data(response)
-      JSON.parse(response)
-      response["hits"]
+      return response["hits"]
   end
 end
