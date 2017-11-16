@@ -8,7 +8,7 @@ class OrganizationsController < ApplicationController
 
   def show
     @organization = Organization.find_by(id: params[:id])
-    @organization_projects = @organization.projects
+    @projects = @organization.projects
 
     render json: {organization: @organization, projects: @projects, category: @organization.category}
   end
