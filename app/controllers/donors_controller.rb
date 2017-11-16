@@ -34,8 +34,12 @@ class DonorsController < ApplicationController
 
   def filter
     filter = params["filters"]
+    zip_arr = ZipcodeReturner.closest_zipcodes(params["filters"]["zipcode"])
+    p "*" * 100
+    p zip_arr
 
     @projects = Project.all
+    @projects = Project.projects_by_location(@projects, zip_arr)
     @projects = Project.projects_by_event(@projects, filter["events"])
     @projects = Project.projects_by_category(@projects, filter["categories"])
     @projects = Project.projects_by_type(@projects, filter["donationType"])
