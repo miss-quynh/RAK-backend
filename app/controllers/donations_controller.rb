@@ -2,17 +2,19 @@ class DonationsController < ApplicationController
 
   def create
     @donation = Donation.new(donation_params)
-    @donation_type = DonationType.find_or_create_by(type_name: params[:donation_type])
+    item = Item.find_by(item_name: params[:item_name])
 
-    @item = Item.new(
-      donation_type: @donation_type,
-      item_name: params[:item_name]
-    )
-    @item.save
-    @donation.item_id = @item.id
+    if item
+      @donation.item = item
+    else
+      img = GettyImagesAdaptor.return_image(params[:item_name])
+      @donation_type = DonationType.find_by(type_name: params[:donation_type])
+      @item = Item.create(item_name: params[:item_name], image: img, donation_type: @donation_type)
+      @donation.item = @item
+    end
 
     if @donation.save
-      render json: {donation: @donation, donation_type: @donation_type, item: @item}
+      render json: {donation: @donation, donation_type: @donation.donation_type, item: @donation.item.item_name}
     else
       render json: {errors: @donation.errors.full_messages}, status: 422
     end
