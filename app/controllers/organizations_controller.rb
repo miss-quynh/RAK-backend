@@ -53,6 +53,11 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def search
+    @org = Organization.find_by_email(organization_params[:email])
+    render json: @org
+  end
+
   private
 
   def organization_params
