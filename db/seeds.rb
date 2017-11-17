@@ -66,5 +66,7 @@ bethany = Organization.create(organization_name: 'Bethany Senior Housing Center'
 bethany.projects << Project.new(project_name: 'BSHC', street_address: '580 Capp Street', city: 'San Francisco', state: 'CA', zip_code: 94100, description: 'There are plenty of opportunities to support the work we do! For our seniors, come teach a class, serve lunch, or deliver groceries to homebound seniors.', organization: bethany, event: miscellaneous )
 bethany.projects.first.donations << Donation.new() #to be continued
 
+# habitat = Organization.create(organization_name: 'Habitat for Humanity', tax_code: '94-3165466', email: 'habitat@habitatgsf.org', url: 'https://www.habitatgsf.org/', mission_statement:'At Habitat for Humanity Greater San Francisco our mission is to provide local families with a springboard to secure, stable futures through affordable homeownership, financial literacy and neighborhood revitalization.', password: 'password', category_id: 2)
+# habitat.projects << Project.name()
 
 
