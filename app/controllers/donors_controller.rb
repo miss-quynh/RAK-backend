@@ -35,8 +35,6 @@ class DonorsController < ApplicationController
   def filter
     filter = params["filters"]
 
-
-
     @projects = Project.all
     @projects = Project.projects_by_event(@projects, filter["events"])
     @projects = Project.projects_by_category(@projects, filter["categories"])
@@ -44,6 +42,7 @@ class DonorsController < ApplicationController
 
     if params["filters"]['zipcode'] != ""
       zip_arr = ZipcodeReturner.closest_zipcodes(params["filters"]["zipcode"])
+      zip_arr << params["filters"]["zipcode"].to_i
       @projects = Project.projects_by_location(@projects, zip_arr)
     end
 
