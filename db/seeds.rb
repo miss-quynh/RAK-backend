@@ -73,5 +73,7 @@ end
 # bethany = Organization.create(organization_name: 'Bethany Senior Housing Center', tax_code: '94-3165430', email: 'andre@bshc.org', url: 'http://www.bethanycenter.org/', mission_statement: 'Bethany Center’s core mission is to provide a home for its residents and to meet their individual needs. In addition to providing affordable and service-supported housing, Bethany Center offers programs for the whole person, programs that strengthen creativity, health, productivity and independence to greatly enhance one’s quality of life. All programs at Bethany Center are provided by Ruth’s Table, the art and wellness space located on Bethany Center’s ground floor.', password: 'password', category: Category.find_by(category_name: 'Housing'))
 
 
+# habitat = Organization.create(organization_name: 'Habitat for Humanity', tax_code: '94-3165466', email: 'habitat@habitatgsf.org', url: 'https://www.habitatgsf.org/', mission_statement:'At Habitat for Humanity Greater San Francisco our mission is to provide local families with a springboard to secure, stable futures through affordable homeownership, financial literacy and neighborhood revitalization.', password: 'password', category_id: 2)
+# habitat.projects << Project.name()
 
 
