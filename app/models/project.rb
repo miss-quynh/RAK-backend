@@ -60,7 +60,7 @@ class Project < ApplicationRecord
     if donation_types_arr.class == Array && !donation_types_arr.empty?
       projects = []
       donation_types_arr.each do |donation|
-        found_projects = DonationType.find_by(type_name: "donation").projects
+        found_projects = DonationType.find_by(type_name: donation).projects
         projects = projects|found_projects
       end
       projects
