@@ -30,15 +30,14 @@ class ProjectsController < ApplicationController
 	def create
 	  @project = Project.new(project_params)
 		@organization = Organization.find_by(id: params[:organization_id])
+		@event = Event.find_or_create_by(event_name: params[:event])
 		@project.organization = @organization
-
-		if project_params[:event]
-			@project.event = Event.find_or_create_by(name: project_params[:event])
-		end
+		@project.event = @event
 
 	  if @project.save
 	  	render json: @project
 	  else
+	  	p @project.errors.full_messages
 	  	@errors = @project.errors.full_messages
 	  	render json: @errors, status: 406
 	  end
@@ -70,7 +69,7 @@ class ProjectsController < ApplicationController
 	private
 
 	def project_params
-		params.require(:project).permit(:project_name, :street_address, :city, :state, :zip_code, :description, :event)
+		params.require(:project).permit(:project_name, :street_address, :city, :state, :zip_code, :description)
 	end
 
 end
