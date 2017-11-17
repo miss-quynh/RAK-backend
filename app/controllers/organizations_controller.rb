@@ -10,7 +10,7 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find_by(id: params[:id])
     @projects = @organization.projects
 
-    render json: {organization: @organization, projects: @projects, category: @organization.category}
+    render json: {organization: @organization, projects: @projects, category: @organization.category, image_url: @organization.image_url}
   end
 
   def ein
@@ -30,7 +30,6 @@ class OrganizationsController < ApplicationController
     @organization = Organization.new(organization_params)
     @category = Category.find_by(category_name: params['category'])
     @organization.category = @category
-
     if @organization.save
       render json: {organization: @organization}
     else
